@@ -118,6 +118,7 @@ async function viewQuote(id) {
   $('#notes').onchange = e => { q.notes = e.target.value; save(); };
   $('#measure').onclick = () => openMeasure(m => { if (m) { q.measurements.push(m); save().then(render); } });
   $('#preset').onchange = e => {
+    if (e.target.value === '') return; // +'' is 0, which would grab presets[0]
     const p = s.presets[+e.target.value];
     if (!p) return;
     const qty = +totalSqft.toFixed(1);
@@ -278,7 +279,9 @@ async function viewSettings() {
   $('#import').onchange = async e => {
     const f = e.target.files[0];
     if (!f || !confirm('Import merges the backup into current data. Continue?')) return;
-    const data = JSON.parse(await f.text());
+    let data;
+    try { data = JSON.parse(await f.text()); } catch { return alert('Not a valid backup file.'); }
+    if (!data.clients && !data.quotes && !data.settings) return alert('Not a QuickQuote backup file.');
     const toBlob = async d => d ? await (await fetch(d)).blob() : null;
     for (const c of data.clients || []) await put('clients', c);
     for (const q of data.quotes || []) {
