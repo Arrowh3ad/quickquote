@@ -1,0 +1,91 @@
+* { box-sizing: border-box; }
+:root {
+  --bg: #111827; --panel: #1f2937; --line: #374151;
+  --text: #f3f4f6; --muted: #9ca3af; --accent: #22c55e; --danger: #ef4444;
+}
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 16px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+main { max-width: 760px; margin: 0 auto; padding: 16px; padding-bottom: 48px; }
+h1, h2, h3 { margin: .4em 0; }
+h3 { font-size: 1rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+a { color: var(--accent); text-decoration: none; }
+section { margin: 20px 0; }
+
+.topbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 16px; background: var(--panel); border-bottom: 1px solid var(--line);
+  position: sticky; top: 0; z-index: 10;
+}
+.brand { font-weight: 700; }
+.topbar nav a { margin-left: 14px; color: var(--muted); }
+.topbar nav a.active { color: var(--accent); }
+
+button, .button {
+  display: inline-block; background: var(--accent); color: #052e16; border: 0;
+  border-radius: 8px; padding: 9px 14px; font: inherit; font-weight: 600; cursor: pointer;
+}
+button.danger { background: transparent; color: var(--danger); padding: 6px 8px; }
+button.ghost { background: var(--panel); color: var(--text); border: 1px solid var(--line); font-weight: 500; white-space: nowrap; }
+button:disabled { opacity: .4; }
+input, select, textarea {
+  width: 100%; background: var(--bg); color: var(--text);
+  border: 1px solid var(--line); border-radius: 8px; padding: 9px 10px; font: inherit;
+}
+label { display: block; margin: 10px 0; color: var(--muted); font-size: .9rem; }
+label.button { width: auto; color: #052e16; }
+input[type="file"] { border: 0; padding-left: 0; }
+
+.row { display: flex; align-items: center; gap: 8px; }
+.spread { justify-content: space-between; }
+.stack > * + * { margin-top: 8px; }
+.grow { flex: 1; }
+.center { text-align: center; margin: 40px auto; max-width: 420px; }
+.right { text-align: right; }
+.big { font-size: 1.15rem; }
+.muted { color: var(--muted); }
+.small { font-size: .85rem; }
+
+.cards, .plain { list-style: none; padding: 0; margin: 0; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px; margin: 8px 0; }
+.card a { display: flex; flex-direction: column; color: var(--text); }
+.card .total { color: var(--accent); font-weight: 700; }
+.plain li { padding: 6px 0; border-bottom: 1px solid var(--line); }
+
+table.items { width: 100%; border-collapse: collapse; }
+table.items th { text-align: left; color: var(--muted); font-size: .8rem; padding: 4px; }
+table.items td { padding: 4px; border-top: 1px solid var(--line); }
+table.items input { padding: 6px 8px; }
+table.items td:nth-child(2) input, table.items td:nth-child(3) input { min-width: 64px; }
+
+/* measure overlay */
+.measure { position: fixed; inset: 0; z-index: 50; background: #000; display: flex; flex-direction: column; }
+.m-top { padding: 10px 14px; color: #fff; background: #111827; font-size: .9rem; }
+.m-stage { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.m-stage canvas { max-width: 100%; max-height: 100%; touch-action: none; }
+.m-panel { display: flex; gap: 8px; align-items: center; padding: 10px 14px; background: #111827; }
+.m-panel input, .m-panel select { flex: 1; }
+.m-col { flex-direction: column; align-items: stretch; }
+.m-col .row { width: 100%; }
+.m-bottom { display: flex; justify-content: space-between; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); background: #111827; }
+.m-bottom button { background: var(--panel); color: var(--text); }
+.m-readout { color: var(--accent); font-weight: 700; white-space: nowrap; }
+.hidden { display: none !important; }
+
+/* quote document (screen + print) */
+.doc { background: #fff; color: #111; border-radius: 10px; padding: 32px; margin: 12px 0; }
+.doc .muted { color: #666; }
+.doc .logo { max-height: 64px; display: block; margin-bottom: 8px; }
+.doc h1 { font-size: 1.4rem; }
+.doc h3 { color: #666; }
+.doc table.items td { border-top: 1px solid #ddd; }
+.doc table.items th { color: #666; }
+.doc .total-row td { border-top: 2px solid #111; font-size: 1.05rem; }
+
+@media print {
+  .topbar, .no-print { display: none !important; }
+  body { background: #fff; }
+  main { max-width: none; padding: 0; }
+  .doc { border-radius: 0; padding: 0; margin: 0; }
+}
