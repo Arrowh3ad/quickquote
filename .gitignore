@@ -1,2 +1,12 @@
 .env
 server/.env
+
+# Local secrets and signing material
+.env*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*.json
+secrets*.json
